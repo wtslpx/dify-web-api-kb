@@ -3,8 +3,8 @@ app:
   icon: 🤖
   icon_background: '#FFEAD5'
   mode: advanced-chat
-  name: create-kb-by-file
-  use_icon_as_answer_icon: false
+  name: create-kb-by-http-file
+  use_icon_as_answer_icon: true
 dependencies: []
 kind: app
 version: 0.3.0
@@ -16,7 +16,7 @@ workflow:
     selector:
     - conversation
     - dataset_id
-    value: 3491b791-97eb-4aba-9d50-dd90ef41c02e
+    value: 3491b791-97eb-4aba-9d50-dd970e7f471c02e
     value_type: string
   - description: ''
     id: 0841f827-813c-44c2-9ebc-ee2034fa2269
@@ -24,7 +24,7 @@ workflow:
     selector:
     - conversation
     - api_key
-    value: dataset-UBEwRowrs12IlfuDJIvxWugf
+    value: dataset-UBEwRow9356s12Il7fuDJIvxWugf
     value_type: string
   environment_variables: []
   features:
@@ -92,7 +92,7 @@ workflow:
     - data:
         desc: ''
         selected: false
-        title: 开始
+        title: start
         type: start
         variables:
         - allowed_file_extensions: []
@@ -120,21 +120,13 @@ workflow:
       type: custom
       width: 244
     - data:
-        answer: '{{#1750841415493.body#}}
-
-          {{#1750841415493.status_code#}}
-
-          {{#1750841415493.headers#}}
-
-          {{#1750841415493.files#}}
-
-          ----------------------------------------------------'
+        answer: '{{#1750841415493.status_code#}}'
         desc: ''
         selected: false
-        title: 直接回复
+        title: answer
         type: answer
         variables: []
-      height: 178
+      height: 105
       id: answer
       position:
         x: 638
@@ -173,7 +165,7 @@ workflow:
           type: form-data
         desc: ''
         error_strategy: fail-branch
-        headers: Authorization:Bearer dataset-UBEwRow8rs129IlfuD9J0Ivx0Wugf
+        headers: Authorization:Bearer {{#conversation.api_key#}}
         method: post
         params: file:{{#1750841367259.document_to_upload.url#}}
         retry_config:
@@ -186,11 +178,11 @@ workflow:
           max_connect_timeout: 0
           max_read_timeout: 0
           max_write_timeout: 0
-        title: HTTP 请求
+        title: http
         type: http-request
-        url: http://192.168.0.68:5001/v1/datasets/34981b791-97eb-4aba-9d50-dd890ef967c02e/document/create-by-file
+        url: http://192.168.0.68:5001/v1/datasets/{{#conversation.dataset_id#}}/document/create-by-file
         variables: []
-      height: 208
+      height: 195
       id: '1750841415493'
       position:
         x: 334
@@ -198,12 +190,12 @@ workflow:
       positionAbsolute:
         x: 334
         y: 304
-      selected: false
+      selected: true
       sourcePosition: right
       targetPosition: left
       type: custom
       width: 244
     viewport:
-      x: 431.0217914688202
-      y: -62.99662625362316
+      x: -53.9782085311798
+      y: 117.71680086662423
       zoom: 0.923655537541026
