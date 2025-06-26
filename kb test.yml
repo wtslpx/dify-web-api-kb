@@ -1,0 +1,209 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: advanced-chat
+  name: create-kb-by-file
+  use_icon_as_answer_icon: false
+dependencies: []
+kind: app
+version: 0.3.0
+workflow:
+  conversation_variables:
+  - description: ''
+    id: 226f0583-ee0a-4e62-ab6c-8c59baaac8a4
+    name: dataset_id
+    selector:
+    - conversation
+    - dataset_id
+    value: 3491b791-97eb-4aba-9d50-dd90ef41c02e
+    value_type: string
+  - description: ''
+    id: 0841f827-813c-44c2-9ebc-ee2034fa2269
+    name: api_key
+    selector:
+    - conversation
+    - api_key
+    value: dataset-UBEwRowrs12IlfuDJIvxWugf
+    value_type: string
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .pdf
+      allowed_file_types:
+      - document
+      allowed_file_upload_methods:
+      - local_file
+      enabled: true
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: false
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInLoop: false
+        sourceType: http-request
+        targetType: answer
+      id: 1750841415493-source-answer-target
+      source: '1750841415493'
+      sourceHandle: source
+      target: answer
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: start
+        targetType: http-request
+      id: 1750841367259-source-1750841415493-target
+      source: '1750841367259'
+      sourceHandle: source
+      target: '1750841415493'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: 开始
+        type: start
+        variables:
+        - allowed_file_extensions: []
+          allowed_file_types:
+          - document
+          allowed_file_upload_methods:
+          - local_file
+          label: 上传文件
+          max_length: 48
+          options: []
+          required: true
+          type: file
+          variable: upload_file
+      height: 90
+      id: '1750841367259'
+      position:
+        x: 30
+        y: 304
+      positionAbsolute:
+        x: 30
+        y: 304
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: '{{#1750841415493.body#}}
+
+          {{#1750841415493.status_code#}}
+
+          {{#1750841415493.headers#}}
+
+          {{#1750841415493.files#}}
+
+          ----------------------------------------------------'
+        desc: ''
+        selected: false
+        title: 直接回复
+        type: answer
+        variables: []
+      height: 178
+      id: answer
+      position:
+        x: 638
+        y: 304
+      positionAbsolute:
+        x: 638
+        y: 304
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        authorization:
+          config:
+            api_key: '{{#conversation.api_key#}}'
+            type: bearer
+          type: api-key
+        body:
+          data:
+          - id: key-value-327
+            key: data
+            type: text
+            value: '{"indexing_technique":"high_quality","process_rule":{"rules":{"pre_processing_rules":[{"id":"remove_extra_spaces","enabled":true},{"id":"remove_urls_emails","enabled":true}],"segmentation":{"separator":"---","max_tokens":4000}},"mode":"custom"}}'
+          - file:
+            - '1750841367259'
+            - upload_file
+            id: key-value-346
+            key: file
+            type: file
+            value: ''
+          - id: key-value-379
+            key: ''
+            type: text
+            value: ''
+          type: form-data
+        desc: ''
+        error_strategy: fail-branch
+        headers: Authorization:Bearer dataset-UBEwRow8rs129IlfuD9J0Ivx0Wugf
+        method: post
+        params: file:{{#1750841367259.document_to_upload.url#}}
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: HTTP 请求
+        type: http-request
+        url: http://192.168.0.68:5001/v1/datasets/34981b791-97eb-4aba-9d50-dd890ef967c02e/document/create-by-file
+        variables: []
+      height: 208
+      id: '1750841415493'
+      position:
+        x: 334
+        y: 304
+      positionAbsolute:
+        x: 334
+        y: 304
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    viewport:
+      x: 431.0217914688202
+      y: -62.99662625362316
+      zoom: 0.923655537541026
